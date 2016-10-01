@@ -1,8 +1,7 @@
 extern crate nix;
 
-use std::process::exit;
+use nix::libc::{c_char, c_void, size_t, ssize_t, STDIN_FILENO, STDOUT_FILENO, read, write, exit};
 use std::io::Error;
-use nix::libc::{c_char, c_void, size_t, ssize_t, STDIN_FILENO, STDOUT_FILENO, read, write};
 
 const BUFFSIZE: usize = 4096;
 
