@@ -1,14 +1,14 @@
 extern crate nix;
 
 use std::os::unix::ffi::OsStringExt;
-use std::ffi::{CStr,CString};
+use std::ffi::{CStr, CString};
 use std::{env, mem, ptr, process};
 use std::io::Error;
 
 use nix::libc;
 
-fn main(){
-    let args: Vec<CString> = env::args_os().map(|s|CString::new(s.into_vec()).unwrap()).collect();
+fn main() {
+    let args: Vec<CString> = env::args_os().map(|s| CString::new(s.into_vec()).unwrap()).collect();
 
     if args.len() != 2 {
         println!("usage: {} directory_name", args[0].to_str().unwrap());
@@ -19,7 +19,9 @@ fn main(){
         let dp = libc::opendir(args[1].as_ptr());
 
         if dp.is_null() {
-            println!("can't open '{}': {}", args[1].to_str().unwrap(), Error::last_os_error());
+            println!("can't open '{}': {}",
+                     args[1].to_str().unwrap(),
+                     Error::last_os_error());
             process::exit(1);
         }
 
@@ -35,7 +37,8 @@ fn main(){
                 break;
             }
 
-            println!("{}", CStr::from_ptr(entry.d_name.as_ptr()).to_str().unwrap());
+            println!("{}",
+                     CStr::from_ptr(entry.d_name.as_ptr()).to_str().unwrap());
         }
 
         libc::closedir(dp);

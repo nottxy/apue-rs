@@ -1,6 +1,7 @@
 extern crate nix;
 
-use nix::libc::{fdopen, fgetc, fputc, ferror, exit, c_int, c_char, STDIN_FILENO, STDOUT_FILENO, EOF};
+use nix::libc::{fdopen, fgetc, fputc, ferror, exit, c_int, c_char, STDIN_FILENO, STDOUT_FILENO,
+                EOF};
 use std::io::Error;
 
 fn main() {

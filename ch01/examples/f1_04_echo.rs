@@ -5,18 +5,23 @@ use std::io::Error;
 
 const BUFFSIZE: usize = 4096;
 
-fn main(){
+fn main() {
     let mut buf: [c_char; BUFFSIZE] = [0; BUFFSIZE];
     let mut n: ssize_t;
 
     unsafe {
         loop {
-            n = read(STDIN_FILENO, &mut buf[0] as *mut c_char as *mut c_void, BUFFSIZE as size_t);
+            n = read(STDIN_FILENO,
+                     &mut buf[0] as *mut c_char as *mut c_void,
+                     BUFFSIZE as size_t);
             if n <= 0 {
                 break;
             }
 
-            if n != write(STDOUT_FILENO, &mut buf[0] as *mut c_char as *mut c_void, n as size_t){
+            if n !=
+               write(STDOUT_FILENO,
+                     &mut buf[0] as *mut c_char as *mut c_void,
+                     n as size_t) {
                 println!("write error: {}", Error::last_os_error());
                 exit(1);
             }

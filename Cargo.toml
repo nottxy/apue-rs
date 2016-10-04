@@ -1,8 +1,2 @@
-[package]
-name = "apue-rs"
-version = "0.1.0"
-authors = ["Bob <nottxy@gmail.com>"]
-
-[dependencies]
-nix = "0.7"
-errno = "0.1"
+[workspace]
+members = ["ch01"]

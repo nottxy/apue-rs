@@ -1,5 +1,5 @@
 [root]
-name = "apue-rs"
+name = "apue_ch01"
 version = "0.1.0"
 dependencies = [
  "errno 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
