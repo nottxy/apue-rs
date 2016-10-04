@@ -1,7 +1,7 @@
 extern crate nix;
 
 use std::ffi::{CStr, CString};
-use nix::libc::{STDIN_FILENO, c_char, c_int, pid_t, printf, fdopen, fgets, strlen, fork, waitpid};
+use nix::libc::{STDIN_FILENO, SIGINT, SIG_ERR, c_char, c_int, pid_t, sighandler_t, signal, printf, fdopen, fgets, strlen, fork, waitpid};
 use std::io::Error;
 use std::{process, ptr, str};
 
@@ -11,12 +11,21 @@ extern {
     pub fn execlp(file: *const c_char, arg: *const c_char, _: *const c_char) -> c_int;
 }
 
+extern "C" fn sig_int(_signo: c_int) {
+    println!("SIGINT interrupt\n%");
+}
+
 fn main(){
     let mut buf: [c_char; MAX_LINE] = [0; MAX_LINE];
     let mut pid: pid_t;
     let mut status: c_int = 0;
 
     unsafe {
+        if signal(SIGINT, sig_int as sighandler_t) == SIG_ERR {
+            println!("signal error: {}", Error::last_os_error());
+            process::exit(1);
+        }
+
         let stdin = fdopen(STDIN_FILENO, &('r' as c_char));
 
         loop {
