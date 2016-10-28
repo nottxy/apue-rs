@@ -1,2 +1,2 @@
 [workspace]
-members = ["ch01", "ch03"]
+members = ["ch01", "ch03", "ch04"]
