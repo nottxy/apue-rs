@@ -21,7 +21,7 @@ fn main() {
             process::exit(1);
         }
 
-        if lseek(fd, 16384, SEEK_SET) == -1 {
+        if lseek(fd, 1638400000, SEEK_SET) == -1 {
             println!("lseek error: {}", Error::last_os_error());
             process::exit(1);
         }
